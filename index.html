@@ -169,7 +169,11 @@ import { imageData } from './images.js';
 const PEOPLE_PER_PAGE = 20;
 let currentPage = 1;
 
-// Group images by person first
+// Get unique people from image data
+const uniquePeople = [...new Set(imageData.map(img => img.name))];
+const totalPages = Math.ceil(uniquePeople.length / PEOPLE_PER_PAGE);
+
+// Group images by person
 const groupedByPerson = {};
 imageData.forEach(image => {
     if (!groupedByPerson[image.name]) {
@@ -178,9 +182,10 @@ imageData.forEach(image => {
     groupedByPerson[image.name].push(image);
 });
 
-// Convert to array of people for easier pagination
-const people = Object.entries(groupedByPerson);
-const totalPages = Math.ceil(people.length / PEOPLE_PER_PAGE);
+// Convert to sorted array of [name, images] pairs
+const people = uniquePeople
+    .map(name => [name, groupedByPerson[name]])
+    .sort((a, b) => a[0].localeCompare(b[0]));
 
 async function getPeopleForPage(page) {
     const startIndex = (page - 1) * PEOPLE_PER_PAGE;
@@ -192,13 +197,16 @@ async function displayImages(page) {
     const personRows = document.getElementById('personRows');
     const peopleList = document.getElementById('peopleList');
     personRows.innerHTML = '';
-    peopleList.innerHTML = ''; // Clear previous people list
+    peopleList.innerHTML = '';
     
     // Show loading state
     personRows.innerHTML = '<div class="loading">Loading...</div>';
     
     // Get people for current page
     const pagePeople = await getPeopleForPage(page);
+    
+    // Count total images on this page
+    const totalImagesOnPage = pagePeople.reduce((sum, [_, images]) => sum + images.length, 0);
     
     // Clear loading state
     personRows.innerHTML = '';
@@ -246,9 +254,9 @@ async function displayImages(page) {
         personRows.appendChild(row);
     });
 
-    // Update pagination info
+    // Update pagination info with correct counts
     document.getElementById('paginationInfo').textContent = 
-        `Page ${currentPage} of ${totalPages} (${pagePeople.length} people, ${pagePeople.reduce((acc, [_, images]) => acc + images.length, 0)} images)`;
+        `Page ${currentPage} of ${totalPages} (${pagePeople.length} people, ${totalImagesOnPage} images)`;
     document.getElementById('prevButton').disabled = currentPage === 1;
     document.getElementById('nextButton').disabled = currentPage === totalPages;
 }
