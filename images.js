@@ -9703,7 +9703,7 @@ export const imageData = [
     {name: "Zygmunt Turkow", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Jan III Sobieski (76852272).jpg"},
     {name: "Zygmunt Turkow", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Wladyslaw III Warnenczyk (76841058).jpg"},
     {name: "Zygmunt Turkow", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Jan III Sobieski (76852272) (cropped).jpg"},
-    {name: "Zygmunt Turkow", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Wladyslaw III Warnenczyk (76841058) (cropped).jpg"}
+    {name: "Zygmunt Turkow", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Wladyslaw III Warnenczyk (76841058) (cropped).jpg"},
     {name: "Q6963483", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Gabi%20Amir.jpeg"}, 
     {name: "Abraham Sharir", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Abraham%20Sharir%20%2800320108%29.jpg"}, 
     {name: "Abraham Sharir", url: "http://commons.wikimedia.org/wiki/Special:FilePath/Abraham Sharir (00320108).jpg"}, 
